@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="jumbotron">
+        <div class="container">
+            <h1 class="display-3">Discover smart news for smart people.</h1>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            {% for article in articles %}
+            <div class="col-md-4">
+                <h2>{{ article.titre }}</h2>
+                <p>{{ article.contenu }}</p>
+                <p>
+                    {% if app.user is not null %}
+                        {% if article in app.user.likedArticles %}
+                        <a class="btn disabled" href="#" role="button">I like it! ({{ article.likes|length }})</a>
+                        {% else %}
+                        <a class="btn btn-secondary article-like" data-id="{{ article.id }}" href="#" role="button">Like ({{ article.likes|length }})</a>
+                        {% endif %}
+                        &nbsp;
+                        <a class="btn btn-secondary" href="#" role="button">Commenter</a>
+                    {% endif %}
+                </p>
+            </div>
+            {% endfor %}
+        </div>
+
+        <hr>
+
+    </div>
+{% endblock %}

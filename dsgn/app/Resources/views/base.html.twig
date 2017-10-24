@@ -1,0 +1,79 @@
+
+<!doctype html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>DSGN Media</title>
+
+    <link href="{{ asset('dist/css/bootstrap.min.css') }}" rel="stylesheet">
+
+</head>
+
+<body>
+
+<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+    <a class="navbar-brand" href="#">dsgn.media</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="#">pop culture</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">design</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">photography</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">about us</a>
+            </li>
+        </ul>
+
+        <ul class="navbar-nav float-right">
+            {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+            <li class="nav-item">
+                <a class="nav-link" href="#">{{ app.user.username }}</a>
+            </li>
+            {% else %}
+            <li class="nav-item">
+                <a class="nav-link" href="{{ path('fos_user_registration_register') }}">S'inscrire</a>
+            </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ path('fos_user_security_login') }}">Se connecter</a>
+                </li>
+            {% endif %}
+        </ul>
+    </div>
+</nav>
+
+<main role="main">
+
+{% block body %}
+{% endblock %}
+
+</main>
+
+<footer class="container">
+    <p>&copy; DSGN 2017</p>
+</footer>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="{{ asset('assets/js/vendor/popper.min.js') }}"></script>
+<script src="{{ asset('dist/js/bootstrap.min.js') }}"></script>
+<script>
+    $('.article-like').click(
+        function() {
+            $.post('{{ path('article_like') }}',{article:$(this).data('id')}, function() { location.reload() });
+        }
+    )
+</script>
+</body>
+</html>
